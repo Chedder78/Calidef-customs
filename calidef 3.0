@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaliDef: Bootloot Empire</title>
+    <style>
+        body {
+            font-family: 'Caveat', cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: #00FFFF;
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 60px;
+            background: linear-gradient(to bottom right, #000033, #330033);
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            line-height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 3;
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 4;
+        }
+
+        .menu-btn div {
+            width: 30px;
+            height: 5px;
+            background-color: #fff;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .glass-pane {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #000033, #330033);
+            margin-top: 60px;
+            z-index: 0;
+        }
+
+        .glass-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            font-size: 36px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -300px; /* initially hidden off-screen */
+            height: 100%;
+            width: 300px;
+            background: linear-gradient(to bottom right, #000033, #330033);
+            overflow-y: auto;
+            transition: 0.5s;
+            z-index: 2;
+        }
+
+        .menu a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #555;
+        }
+
+        .art-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .art-box {
+            width: 250px;
+            height: 350px;
+            margin: 20px;
+            padding: 15px;
+            background: linear-gradient(to bottom right, #000033, #330033);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .art-box:hover {
+            transform: scale(1.1) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+        }
+
+        .art-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .info-bar {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            background: linear-gradient(to right, #000033, #330033);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: left;
+            color: #fff;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            z-index: 2;
+        }
+
+        button {
+            display: block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(to right, #003300, #004400);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #004400, #003300);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(to bottom right, #000033, #330033);
+            position: relative;
+            z-index: 3;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+<header>
+   <div class="menu-btn" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div></div>
+    <div></div>
+           CaliDef: Bootloot Empire
+</header>
+<div class="menu">
+    <a href="#" onclick="openWindow('Home')">Home</a>
+    <a href="#" onclick="openWindow('About')">About</a>
+    <a href="#" onclick="openWindow('Micro Cards')">Micro Cards</a>
+    <a href="#" onclick="openWindow('Custom Cards')">Custom Cards</a>
+    <a href="#" onclick="openWindow('Custom Refractor Singles')">Custom Refractor Singles</a>
+    </div>
+    <a href="#" onclick="openWindow('Contact')">Contact</a>
+<div id="homeWindow" class="window">
+    <!-- Content for the Home window -->
+    Welcome to the Bootloot Empire!
+</div>
+<div id="aboutWindow" class="window">
+    <!-- Content for the About window -->
+    Learn more about the Bootloot Empire.
+</div>
+
+<div id="microCardsWindow" class="window">
+   <!-- Add similar sections for Micro Cards, Custom Cards, Custom Refractor Singles, and Contact -->
+
+<div class="glass-pane">
+    <div class="glass-content">
+        Welcome to the Bootloot Empire.
+        Home of quality hand made custom cards.
+    </div>
+</div>
+
+<div class="art-container">
+    <div class="art-box" onclick="showInfo(1)">
+        <img src="https://cloudflare-ipfs.com/ipfs/QmSRti2HK95NXWYG3t3he7UK7hkgw8w9TdqPc6hi5euV1p/base/1a.jpg" alt="Artwork 1">
+    </div>
+
+    <div class="art-box" onclick="showInfo(2)">
+        <img src="https://cloudflare-ipfs.com/ipfs/QmcAkyEvUNgc6CDKn9yQP9my6pCz5Dk21amr2t6pdZocDZ/base/42a.jpg" alt="Artwork 2">
+    </div>
+    
+    <!-- Add more art boxes as needed -->
+<div class="art-box" onclick="showInfo(3)">
+    <img src="https://photos.app.goo.gl/dJcBMpSuqtpxtoes5" alt="Artwork 3">
+</div>
+
+<div class="art-box" onclick="showInfo(4)">
+    <img src="artwork4.jpg" alt="Artwork 4">
+</div>
+
+
+
+<!-- Your existing HTML content remains unchanged -->
+
+
+
+    <div class="art-box" onclick="showInfo(5)">
+        <img src="artwork5.jpg" alt="Artwork 5">
+    </div>
+
+    <div class="art-box" onclick="showInfo(6)">
+        <img src="artwork6.jpg" alt="Artwork 6">
+    </div>
+
+    <div class="art-box" onclick="showInfo(7)">
+        <img src="artwork7.jpg" alt="Artwork 7">
+    </div>
+
+    <div class="art-box" onclick="showInfo(8)">
+        <img src="artwork8.jpg" alt="Artwork 8">
+    </div>
+</div>
+
+<!-- Additional info bars -->
+<div class="info-bar" data-series="5">
+    <p>Series Number: 5</p>
+    <p>Price: $130</p>
+    <p>Quantity: 4</p>
+    <p>Condition: Like New</p>
+    <button onclick="hideInfo(5)">Close</button>
+</div>
+
+<div class="info-bar" data-series="6">
+    <p>Series Number: 6</p>
+    <p>Price: $110</p>
+    <p>Quantity: 7</p>
+    <p>Condition: Excellent</p>
+    <button onclick="hideInfo(6)">Close</button>
+</div>
+
+<div class="info-bar" data-series="7">
+    <p>Series Number: 7</p>
+    <p>Price: $95</p>
+    <p>Quantity: 3</p>
+    <p>Condition: New</p>
+    <button onclick="hideInfo(7)">Close</button>
+</div>
+
+<div class="info-bar" data-series="8">
+    <p>Series Number: 8</p>
+    <p>Price: $120</p>
+    <p>Quantity: 6</p>
+    <p>Condition: Excellent</p>
+    <button onclick="hideInfo(8)">Close</button>
+</div>
+<!-- End of additional info bars -->
+
+<!-- Your existing JavaScript content remains unchanged -->
+
+</body>
+</html>
+
+<!-- End of additional art boxes -->
+
+<!-- Add more info bars as needed -->
+<div class="info-bar" data-series="3">
+    <p>Series Number: 3</p>
+    <p>Price: $120</p>
+    <p>Quantity: 8</p>
+    <p>Condition: Excellent</p>
+    <button onclick="hideInfo(3)">Close</button>
+</div>
+
+<div class="info-bar" data-series="4">
+    <p>Series Number: 4</p>
+    <p>Price: $90</p>
+    <p>Quantity: 6</p>
+    <p>Condition: Like New</p>
+    <button onclick="hideInfo(4)">Close</button>
+</div>
+<!-- End of additional info bars -->
+
+
+    <!-- Add more art boxes as needed -->
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.querySelector('.menu');
+        menu.style.left = (menu.style.left === '0px' || menu.style.left === '') ? '-300px' : '0px';
+    }
+
+    function showInfo(seriesNumber) {
+        const infoBar = document.querySelector(`.info-bar[data-series="${seriesNumber}"]`);
+        infoBar.style.display = 'block';
+    }
+</script>
+
+<div class="info-bar" data-series="1">
+    <p>Series Number: 1</p>
+    <p>Price: $100</p>
+    <p>Quantity: 5</p>
+    <p>Condition: New</p>
+    <button onclick="hideInfo(1)">Close</button>
+</div>
+
+<div class="info-bar" data-series="2">
+    <p>Series Number: 2</p>
+    <p>Price: $150</p>
+    <p>Quantity: 3</p>
+    <p>Condition: Excellent</p>
+    <button onclick="hideInfo(2)">Close</button>
+</div>
+
+<!-- Add more info bars as needed -->
+
+<script>
+    function hideInfo(seriesNumber) {
+        const infoBar = document.querySelector(`.info-bar[data-series="${seriesNumber}"]`);
+        infoBar.style.display = 'none';
+    }
+</script>
+
+<div class="footer">
+    <a href="https://www.ebay.com" target="_blank">Shop on eBay</a>
+    <a href="https://www.instagram.com" target="_blank">Follow on Instagram</a>
+</div>
+
+</body>
+</html>
